@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noah Connect Grant Dashboard Mockup</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --text: #172033;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #2457c5;
+      --primary-soft: #eaf1ff;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --amber: #d97706;
+      --amber-soft: #fef3c7;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --sidebar: #0f2544;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, #0f2544 0%, #142f55 100%);
+      color: white;
+      padding: 28px 22px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: #ffffff;
+      color: var(--sidebar);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .brand span {
+      display: block;
+      font-size: 12px;
+      color: #b8c7dc;
+      font-weight: 500;
+      margin-top: 3px;
+    }
+
+    .nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .nav a {
+      color: #dbe7f8;
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav a.active,
+    .nav a:hover {
+      background: rgba(255,255,255,0.12);
+      color: white;
+    }
+
+    .sidebar-footer {
+      position: absolute;
+      bottom: 24px;
+      left: 22px;
+      right: 22px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 16px;
+      color: #dce8f8;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .content {
+      padding: 28px 34px 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
+      gap: 20px;
+    }
+
+    .page-title h2 {
+      font-size: 30px;
+      letter-spacing: -0.04em;
+      margin-bottom: 5px;
+    }
+
+    .page-title p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sync-pill {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 11px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .button {
+      border: none;
+      background: var(--primary);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(36, 87, 197, 0.2);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      min-height: 112px;
+    }
+
+    .card-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .card-value {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    .card-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 7px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-header h3 {
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-header p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .tag.green { background: var(--green-soft); color: var(--green); }
+    .tag.amber { background: var(--amber-soft); color: var(--amber); }
+    .tag.red { background: var(--red-soft); color: var(--red); }
+    .tag.blue { background: var(--primary-soft); color: var(--primary); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 15px 22px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--panel-soft);
+    }
+
+    td strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    td small {
+      color: var(--muted);
+    }
+
+    .progress {
+      height: 9px;
+      background: #edf2f7;
+      border-radius: 999px;
+      overflow: hidden;
+      width: 120px;
+      margin-bottom: 7px;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .bar.green { background: var(--green); }
+    .bar.amber { background: var(--amber); }
+    .bar.red { background: var(--red); }
+
+    .side-stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .alerts {
+      padding: 18px 20px 20px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .alert {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--panel-soft);
+      border: 1px solid var(--border);
+    }
+
+    .alert-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .alert-icon.red { background: var(--red-soft); color: var(--red); }
+    .alert-icon.amber { background: var(--amber-soft); color: var(--amber); }
+    .alert-icon.blue { background: var(--primary-soft); color: var(--primary); }
+
+    .alert h4 {
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .alert p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .chart {
+      padding: 20px 22px 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: 130px 1fr 42px;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .chart-label {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .chart-track {
+      height: 12px;
+      border-radius: 999px;
+      background: #edf2f7;
+      overflow: hidden;
+    }
+
+    .chart-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--primary);
+    }
+
+    .chart-row:nth-child(1) .chart-fill { background: var(--red); }
+    .chart-row:nth-child(2) .chart-fill { background: var(--amber); }
+    .chart-row:nth-child(3) .chart-fill { background: var(--green); }
+    .chart-row:nth-child(4) .chart-fill { background: var(--green); }
+    .chart-row:nth-child(5) .chart-fill { background: var(--amber); }
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      margin-top: 22px;
+      align-items: start;
+    }
+
+    .transaction-list {
+      padding: 0;
+    }
+
+    .review-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .calendar {
+      padding: 18px 20px 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .date-item {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .date-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .date-box {
+      border-radius: 14px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      text-align: center;
+      padding: 9px 6px;
+      font-weight: 800;
+    }
+
+    .date-box span {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .date-box strong {
+      display: block;
+      font-size: 20px;
+      margin-top: 2px;
+    }
+
+    .date-copy h4 {
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .date-copy p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .persona-note {
+      margin-top: 22px;
+      background: #111827;
+      color: white;
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .persona-note h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .persona-note p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 900px;
+    }
+
+    @media (max-width: 1180px) {
+      .cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .main-grid,
+      .lower-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+
+      .sidebar-footer {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin-top: 22px;
+      }
+
+      .content {
+        padding: 22px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      th:nth-child(3),
+      td:nth-child(3),
+      th:nth-child(4),
+      td:nth-child(4) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .sync-pill,
+      .button {
+        width: 100%;
+      }
+
+      th, td {
+        padding: 13px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">NC</div>
+        <div>
+          <h1>Noah Connect</h1>
+          <span>Grant compliance tool</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="active" href="#">▦ Dashboard</a>
+        <a href="#">◎ Grants</a>
+        <a href="#">⇄ Xero transactions</a>
+        <a href="#">✓ Evidence</a>
+        <a href="#">◷ Reporting deadlines</a>
+        <a href="#">⚙ Settings</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <strong>Maggie’s view</strong><br />
+        Prioritises risk, deadlines, unmatched spending and audit readiness.
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="topbar">
+        <div class="page-title">
+          <h2>Grant Health Dashboard</h2>
+          <p>Single view of funding, Xero-linked spending, compliance deadlines and reporting risk.</p>
+        </div>
+        <div class="top-actions">
+          <div class="sync-pill">Last synced from Xero · Today 9:15 AM</div>
+          <button class="button">Generate report pack</button>
+        </div>
+      </section>
+
+      <section class="cards">
+        <div class="card">
+          <div class="card-label">Active grants</div>
+          <div class="card-value">12</div>
+          <div class="card-note">Across 8 clients</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Total funding</div>
+          <div class="card-value">$1.4M</div>
+          <div class="card-note">Approved grant value</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Spent to date</div>
+          <div class="card-value">$820K</div>
+          <div class="card-note">From Xero transactions</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Remaining</div>
+          <div class="card-value">$580K</div>
+          <div class="card-note">Available grant budget</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Reports due</div>
+          <div class="card-value">4</div>
+          <div class="card-note">Next 30 days</div>
+        </div>
+        <div class="card">
+          <div class="card-label">At risk</div>
+          <div class="card-value">3</div>
+          <div class="card-note">Need immediate review</div>
+        </div>
+      </section>
+
+      <section class="main-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Grant health overview</h3>
+              <p>Prioritised by budget usage, due dates and compliance risk.</p>
+            </div>
+            <span class="tag blue">Maggie’s daily view</span>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Grant</th>
+                <th>Client</th>
+                <th>Budget used</th>
+                <th>Next deadline</th>
+                <th>Risk</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Community Support Grant</strong>
+                  <small>Evidence missing · Equipment overspend</small>
+                </td>
+                <td>Client B</td>
+                <td>
+                  <div class="progress"><div class="bar red" style="width: 95%;"></div></div>
+                  95%
+                </td>
+                <td>30 Jun 2026</td>
+                <td><span class="tag red">High</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Settlement Support Grant</strong>
+                  <small>Two transactions need matching</small>
+                </td>
+                <td>Client E</td>
+                <td>
+                  <div class="progress"><div class="bar amber" style="width: 84%;"></div></div>
+                  84%
+                </td>
+                <td>8 Jul 2026</td>
+                <td><span class="tag amber">Medium</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Youth Employment Grant</strong>
+                  <small>Milestone 2 on track</small>
+                </td>
+                <td>Client A</td>
+                <td>
+                  <div class="progress"><div class="bar green" style="width: 72%;"></div></div>
+                  72%
+                </td>
+                <td>12 Jul 2026</td>
+                <td><span class="tag green">Low</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Digital Inclusion Grant</strong>
+                  <small>All required invoices uploaded</small>
+                </td>
+                <td>Client D</td>
+                <td>
+                  <div class="progress"><div class="bar green" style="width: 55%;"></div></div>
+                  55%
+                </td>
+                <td>28 Aug 2026</td>
+                <td><span class="tag green">Low</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Skills Training Grant</strong>
+                  <small>Underspend risk before acquittal</small>
+                </td>
+                <td>Client C</td>
+                <td>
+                  <div class="progress"><div class="bar amber" style="width: 38%;"></div></div>
+                  38%
+                </td>
+                <td>31 Jul 2026</td>
+                <td><span class="tag amber">Medium</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="side-stack">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Action required</h3>
+                <p>Issues surfaced from Xero and grant rules.</p>
+              </div>
+            </div>
+
+            <div class="alerts">
+              <div class="alert">
+                <div class="alert-icon red">6</div>
+                <div>
+                  <h4>Unmatched Xero transactions</h4>
+                  <p>Transactions need to be allocated to a client, grant, milestone or budget category.</p>
+                </div>
+              </div>
+              <div class="alert">
+                <div class="alert-icon amber">3</div>
+                <div>
+                  <h4>Missing evidence documents</h4>
+                  <p>Receipts, payroll records or activity documents are not yet attached.</p>
+                </div>
+              </div>
+              <div class="alert">
+                <div class="alert-icon blue">4</div>
+                <div>
+                  <h4>Reports due soon</h4>
+                  <p>Reporting and acquittal deadlines fall within the next 30 days.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Budget usage</h3>
+                <p>Percentage of approved grant budget spent.</p>
+              </div>
+            </div>
+
+            <div class="chart">
+              <div class="chart-row">
+                <div class="chart-label">Community</div>
+                <div class="chart-track"><div class="chart-fill" style="width: 95%;"></div></div>
+                <strong>95%</strong>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Settlement</div>
+                <div class="chart-track"><div class="chart-fill" style="width: 84%;"></div></div>
+                <strong>84%</strong>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Youth</div>
+                <div class="chart-track"><div class="chart-fill" style="width: 72%;"></div></div>
+                <strong>72%</strong>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Digital</div>
+                <div class="chart-track"><div class="chart-fill" style="width: 55%;"></div></div>
+                <strong>55%</strong>
+              </div>
+              <div class="chart-row">
+                <div class="chart-label">Skills</div>
+                <div class="chart-track"><div class="chart-fill" style="width: 38%;"></div></div>
+                <strong>38%</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lower-grid">
+        <div class="panel transaction-list">
+          <div class="panel-header">
+            <div>
+              <h3>Xero transactions needing review</h3>
+              <p>Imported spending that needs grant allocation or evidence.</p>
+            </div>
+            <span class="review-badge">● 6 open items</span>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Transaction</th>
+                <th>Amount</th>
+                <th>Suggested match</th>
+                <th>Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Officeworks invoice</strong>
+                  <small>Equipment · 24 Jun 2026</small>
+                </td>
+                <td>$1,250</td>
+                <td>Youth Employment</td>
+                <td><span class="tag amber">Evidence required</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Payroll batch</strong>
+                  <small>Wages · 23 Jun 2026</small>
+                </td>
+                <td>$8,500</td>
+                <td>Split allocation</td>
+                <td><span class="tag red">Manual review</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Consultant invoice</strong>
+                  <small>Professional fees · 21 Jun 2026</small>
+                </td>
+                <td>$3,000</td>
+                <td>Skills Training</td>
+                <td><span class="tag amber">Approval needed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Compliance calendar</h3>
+              <p>Upcoming reports, evidence deadlines and acquittals.</p>
+            </div>
+          </div>
+
+          <div class="calendar">
+            <div class="date-item">
+              <div class="date-box"><span>Jun</span><strong>30</strong></div>
+              <div class="date-copy">
+                <h4>Community Support report due</h4>
+                <p>High risk because equipment spend is above budget and evidence is incomplete.</p>
+              </div>
+            </div>
+            <div class="date-item">
+              <div class="date-box"><span>Jul</span><strong>05</strong></div>
+              <div class="date-copy">
+                <h4>Evidence required from Client B</h4>
+                <p>Missing receipts and activity evidence for current reporting period.</p>
+              </div>
+            </div>
+            <div class="date-item">
+              <div class="date-box"><span>Jul</span><strong>12</strong></div>
+              <div class="date-copy">
+                <h4>Youth Employment milestone review</h4>
+                <p>Milestone 2 financial target is on track.</p>
+              </div>
+            </div>
+            <div class="date-item">
+              <div class="date-box"><span>Jul</span><strong>31</strong></div>
+              <div class="date-copy">
+                <h4>Skills Training final acquittal</h4>
+                <p>Potential underspend risk before final reporting.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="persona-note">
+        <div>
+          <h3>Design purpose</h3>
+          <p>
+            This view is designed for Maggie to manage by exception: instead of reading every Xero transaction manually,
+            the dashboard highlights high-risk grants, missing evidence, upcoming deadlines and transactions requiring allocation.
+          </p>
+        </div>
+        <button class="button">Review risks</button>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
