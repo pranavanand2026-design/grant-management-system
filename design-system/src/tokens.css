@@ -1,0 +1,56 @@
+/*
+ * GrantFlow design tokens. These custom properties are the single source of
+ * truth for the brand: every component styles itself from them, so changing a
+ * value here re-themes the whole system. Also exposed as a Tailwind preset
+ * (tailwind-preset.js) for utility-class consumers.
+ */
+:root {
+  /* Surfaces — warm paper whites, not stock grey. */
+  --paper: oklch(98% 0.006 60);
+  --card: oklch(99.4% 0.004 60);
+  --sunken: oklch(97.2% 0.006 60);
+  --rule: oklch(91% 0.008 50);
+  --rule-strong: oklch(84% 0.010 50);
+
+  /* Ink — three weights of near-black warmed toward brown. */
+  --ink: oklch(24% 0.012 40);
+  --ink-2: oklch(52% 0.012 45);
+  --ink-3: oklch(68% 0.010 50);
+
+  /* Brand. */
+  --brand: #E8471A;
+  --brand-pale: #FEF0EB;
+
+  /* Status, warmed — moss / ochre / brick, not stock green / amber / red. */
+  --ok: oklch(52% 0.08 150);
+  --ok-bg: oklch(94% 0.03 150);
+  --warn: oklch(48% 0.11 72);
+  --warn-bg: oklch(94% 0.05 80);
+  --breach: oklch(50% 0.17 25);
+  --breach-bg: oklch(94% 0.05 30);
+
+  /* Geometry & type. */
+  --radius: 4px;
+  /* Softer radius and elevation scale, introduced with the sign-in redesign.
+     New surfaces use these; older ones still use --radius until migrated. */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --shadow-raised: 0 1px 2px rgb(60 40 20 / .04), 0 22px 48px -28px rgb(60 40 20 / .32);
+  --focus-ring: 0 0 0 3px color-mix(in oklch, var(--brand) 22%, transparent);
+  --gutter: 48px;
+  --mono: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif; /* @kind font */
+  --sans: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif; /* @kind font */
+  /* Editorial headlines (sign-in stories); body copy stays --sans. */
+  --display: "Iowan Old Style", "Charter", "Palatino Linotype", Georgia, serif; /* @kind font */
+
+  /* Semantic aliases — reference these in product code, not the raw values. */
+  --line: var(--rule);
+  --surface: var(--paper);
+  --on-track: var(--ok);
+  --on-track-bg: var(--ok-bg);
+  --at-risk: var(--warn);
+  --at-risk-bg: var(--warn-bg);
+  --over: var(--breach);
+  --over-bg: var(--breach-bg);
+}

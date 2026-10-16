@@ -1,0 +1,32 @@
+{
+  "name": "@grantflow/ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reusable UI components and design tokens for GrantFlow.",
+  "type": "module",
+  "main": "./dist/grantflow-ui.umd.cjs",
+  "module": "./dist/grantflow-ui.js",
+  "exports": {
+    ".": {
+      "import": "./dist/grantflow-ui.js",
+      "require": "./dist/grantflow-ui.umd.cjs"
+    },
+    "./styles.css": "./dist/grantflow-ui.css",
+    "./tailwind-preset": "./tailwind-preset.js"
+  },
+  "files": ["dist", "tailwind-preset.js"],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^6.0.7"
+  }
+}

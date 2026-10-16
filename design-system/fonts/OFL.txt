@@ -1,0 +1,10 @@
+Roboto Mono and JetBrains Mono are licensed under the SIL Open Font License,
+Version 1.1. Full license text: https://openfontlicense.org
+
+Roboto Mono — Copyright 2015 The Roboto Mono Project Authors
+  (https://github.com/googlefonts/RobotoMono)
+JetBrains Mono — Copyright 2020 The JetBrains Mono Project Authors
+  (https://github.com/JetBrains/JetBrainsMono)
+
+Fetched from Google Fonts (fonts.googleapis.com) for use in this design
+system's --mono font stack (design-system/src/tokens.css).
