@@ -1,0 +1,24 @@
+{
+  "name": "grantflow-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "GrantFlow grant compliance dashboard built on @grantflow/ui.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@azure/msal-browser": "^4.30.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "vite": "^6.0.7",
+    "vitest": "^3.2.7"
+  }
+}

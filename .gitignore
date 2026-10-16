@@ -1,0 +1,35 @@
+# OS
+.DS_Store
+
+# Client documents (grant agreements, cost worksheets, statements) — never commit
+/*.pdf
+/*.xlsx
+/*.xlsm
+/*.docx
+project/grants/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local grant database (backend persistence)
+*.db
+
+# Secrets / local backend config (SharePoint app-only credentials, etc.) — never commit
+.env
+*.env
+.env.*
+*.env.*
+!.env.example
+!*.env.example
+.sharepoint.env
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Local exploratory tooling (not part of the GrantFlow product)
+architecture-explorer/

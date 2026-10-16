@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GrantFlow UI — demo</title>
+  <!-- The built stylesheet: the app's full visual language. -->
+  <link rel="stylesheet" href="./dist/grantflow-ui.css" />
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="./dist/grantflow-ui.umd.cjs"></script>
+  <style>
+    /* The stylesheet locks html/body for the app shell — undo that for a
+       scrolling demo page. */
+    html, body { overflow: auto !important; height: auto !important; }
+    .wrap { max-width: 860px; margin: 40px auto; padding: 0 24px; display: grid; gap: 28px; }
+    .demo-h { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-3); margin: 0 0 10px; }
+    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    const { Button, Card, Modal, Tabs, StatusPill, EmptyState, FindingCard, TipLayer, Value } = window.GrantFlowUI;
+    const h = React.createElement;
+    const { useState } = React;
+
+    function Demo() {
+      const [open, setOpen] = useState(false);
+      const [tab, setTab] = useState("overview");
+      return h("div", { className: "wrap" }, [
+        h("h1", { key: "t", className: "page-title" }, "GrantFlow UI"),
+
+        h("section", { key: "b" }, [
+          h("p", { key: "h", className: "demo-h" }, "Button"),
+          h("div", { key: "r", className: "row" }, [
+            h(Button, { key: 1, variant: "primary", onClick: () => setOpen(true) }, "Add grant"),
+            h(Button, { key: 2, variant: "secondary" }, "Cancel"),
+            h(Button, { key: 3, variant: "chip", active: true }, "Overdue reports"),
+            h(Button, { key: 4, variant: "chip" }, "Due soon"),
+            h(Button, { key: 5, variant: "chip", ghost: true }, "Clear filters"),
+            h(Button, { key: 6, variant: "text" }, "Edit"),
+          ]),
+        ]),
+
+        h("section", { key: "s" }, [
+          h("p", { key: "h", className: "demo-h" }, "StatusPill + Value (provenance marginalia)"),
+          h("div", { key: "r", className: "row" }, [
+            h(StatusPill, { key: 1, sev: "breach" }, "Report overdue"),
+            h(StatusPill, { key: 2, sev: "warn" }, "Evidence required"),
+            h(StatusPill, { key: 3, sev: "done" }, "Completed"),
+            h(StatusPill, { key: 4, sev: "none" }, "No open issues"),
+            h(Value, { key: 5, value: 250000, format: "money", source: "agreement" }),
+            h(Value, { key: 6, value: 146660, format: "money", source: "manual" }),
+            h(Value, { key: 7, value: 91600, format: "money", source: "derived", sourceDetail: { note: "40% of eligible expenditure." } }),
+            h(Value, { key: 8, value: null, format: "money", missing: { reason: "The agreement does not state this." } }),
+          ]),
+        ]),
+
+        h("section", { key: "tabs" }, [
+          h("p", { key: "h", className: "demo-h" }, "Tabs"),
+          h(Tabs, {
+            key: "t", ariaLabel: "Demo sections", active: tab, onSelect: setTab,
+            tabs: [
+              { key: "overview", label: "Overview" }, { key: "milestones", label: "Milestones" },
+              { key: "expenditure", label: "Expenditure" }, { key: "evidence", label: "Evidence" },
+            ],
+          }),
+        ]),
+
+        h("section", { key: "c" }, [
+          h("p", { key: "h", className: "demo-h" }, "Card + FindingCard + EmptyState"),
+          h(Card, { key: 1, style: { padding: 20, marginBottom: 12 } }, "A bordered surface — every panel sits on one."),
+          h(FindingCard, {
+            key: 2,
+            finding: {
+              severity: "warning", title: "Milestone 3 date differs between planning and agreement sources",
+              explanation: "The agreement governs compliance dates.",
+              comparisons: [
+                { source: "agreement", value: "5 Aug 2022" },
+                { source: "application_attachment", value: "28 Feb 2022" },
+              ],
+              options: [{ value: "agreement", label: "Use agreement" }, { value: "attachment", label: "Use attachment" }],
+            },
+            onChange: () => {},
+          }),
+          h(EmptyState, { key: 3, title: "No grants yet" },
+            h("p", null, "Upload a funding agreement to build the first dashboard.")),
+        ]),
+
+        h(Modal, { key: "m", open, title: "New grant", onClose: () => setOpen(false) }, [
+          h("p", { key: 1 }, "Upload a funding agreement, milestone attachment, and cashflow statement to begin."),
+          h("div", { key: 2, className: "modal-actions" }, [
+            h(Button, { key: 1, variant: "secondary", onClick: () => setOpen(false) }, "Cancel"),
+            h(Button, { key: 2, variant: "primary", onClick: () => setOpen(false) }, "Cross-check documents"),
+          ]),
+        ]),
+
+        h(TipLayer, { key: "tip" }),
+      ]);
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(h(Demo));
+  </script>
+</body>
+</html>

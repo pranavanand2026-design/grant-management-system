@@ -1,0 +1,24 @@
+/* Roboto Mono + JetBrains Mono — variable fonts, weight axis 400–700.
+   Fills the `--mono` fallback stack (tokens.css: ui-monospace, "SF Mono",
+   "Roboto Mono", "JetBrains Mono", Menlo, Consolas, monospace) with real
+   webfonts instead of relying on whatever monospace font happens to be
+   installed. Sourced from Google Fonts under the SIL Open Font License 1.1,
+   Latin subset only. */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./jetbrains-mono-variable.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2212;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./roboto-mono-variable.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2212;
+}
